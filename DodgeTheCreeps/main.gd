@@ -4,29 +4,33 @@ extends Node
 var score
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	new_game()
+	pass #new_game()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 # 从 Player 发出 信号
 func game_over() -> void:
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$HUD.show_game_over()
+	$Music.stop()
+	$DeathSound.play()
 	
 
 func new_game() -> void:
+	# call_group() 会调用
+	get_tree().call_group("mobs", "queue_free") #清理旧的小怪
 	score = 0
+	$HUD.update_score(score)
+	$HUD.show_message("Get Ready")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	
+	$Music.play()
 
 
 func _on_score_timer_timeout() -> void:
 	# 加分计时器
 	score += 1
+	$HUD.update_score(score)
 
 
 func _on_start_timer_timeout() -> void:
@@ -38,6 +42,8 @@ func _on_mob_timer_timeout() -> void:
 	var mob = mob_scen.instantiate() # 实例化mob
 	# Choose a random location on Path2D.
 	var mob_spawn_location = $MobPath/MobSpawnLocation
+	mob_spawn_location.progress = randi() # 移动位置
+
 	# Set the mob's position to the random location.
 	mob.position = mob_spawn_location.position
 	# PI表示转半圈的弧度
