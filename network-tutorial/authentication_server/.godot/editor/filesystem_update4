@@ -1,0 +1,4 @@
+res://scenes/main.tscn
+res://scenes/main.gd
+res://scenes/network/auhentication_server.gd
+res://scenes/auhentication_server.gd

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccdib0doyfqoq"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_30rpk"]
+[ext_resource type="Script" path="res://scenes/network/auhentication_server.gd" id="2_qvm0g"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_30rpk")
+
+[node name="AuhenticationServer" type="Node" parent="."]
+script = ExtResource("2_qvm0g")

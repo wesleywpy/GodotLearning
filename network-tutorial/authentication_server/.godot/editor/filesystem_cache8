@@ -1,0 +1,8 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1739412440
+icon.svg::CompressedTexture2D::7868872680137387004::1739352832::1739352841::1::::<><>::
+::res://scenes/::1739412632
+main.gd::GDScript::-1::1739412469::0::1::::<>Node<>::
+main.tscn::PackedScene::4919901028047033172::1739412637::0::1::::<><>::res://scenes/main.gd<>res://scenes/auhentication_server.gd
+auhentication_server.gd::GDScript::-1::1739412632::0::1::::<>Node<>::
+::res://scenes/network/::1739412635
