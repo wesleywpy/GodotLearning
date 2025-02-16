@@ -29,6 +29,10 @@ func _physics_process(delta: float) -> void:
 		direction = direction.normalized()
 		# 设置方向
 		$Pivot.basis = Basis.looking_at(direction)
+		$AnimationPlayer.speed_scale = 4 # 角色动画速度
+	else:
+		$AnimationPlayer.speed_scale = 1
+
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
 	
@@ -57,6 +61,8 @@ func _physics_process(delta: float) -> void:
 	# 移动角色
 	velocity = target_velocity
 	move_and_slide()
+	#使角色在跳跃时产生弧线
+	$Pivot.rotation.x = PI / 6 * velocity.y / jump_impulse
 
 
 func die() -> void:
