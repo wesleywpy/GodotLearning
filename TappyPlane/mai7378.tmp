@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1cqf6y56j3dk"]
+
+[ext_resource type="Texture2D" uid="uid://d3owi2lqpevvo" path="res://assets/textures/others/background.png" id="1_7i5cj"]
+[ext_resource type="Script" path="res://src/parallax_background.gd" id="1_j1c2c"]
+[ext_resource type="Script" path="res://main.gd" id="1_nk03j"]
+[ext_resource type="PackedScene" uid="uid://doekxhxqwe8p3" path="res://src/entities/plane.tscn" id="2_kbs6n"]
+[ext_resource type="PackedScene" uid="uid://fdl0ebhbgaua" path="res://src/entities/rock.tscn" id="4_218nn"]
+
+[sub_resource type="GDScript" id="GDScript_qevew"]
+script/source = "extends ParallaxLayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_nk03j")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("1_j1c2c")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(576, 0)
+script = SubResource("GDScript_qevew")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(287.75, 161.5)
+scale = Vector2(0.72, 0.671)
+texture = ExtResource("1_7i5cj")
+
+[node name="Plane" parent="." instance=ExtResource("2_kbs6n")]
+
+[node name="Rock" parent="." instance=ExtResource("4_218nn")]
+position = Vector2(548, 114)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,6 @@
+res://src/entities/plane.tscn
+res://main.tscn
+res://src/entities/rock.tscn
+res://main.gd
+res://src/widgets/game_form.tscn
+res://src/widgets/game_form.gd

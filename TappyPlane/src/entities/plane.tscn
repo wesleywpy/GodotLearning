@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://doekxhxqwe8p3"]
+
+[ext_resource type="Texture2D" uid="uid://c6aub50854flg" path="res://assets/textures/entities/planes/planeYellow1.png" id="1_3c252"]
+[ext_resource type="Script" path="res://src/entities/plane.gd" id="1_3heus"]
+[ext_resource type="Texture2D" uid="uid://b8kla7d8oauag" path="res://assets/textures/entities/planes/planeYellow2.png" id="2_phjf1"]
+[ext_resource type="Texture2D" uid="uid://b1j282nqxr7no" path="res://assets/textures/entities/planes/planeYellow3.png" id="3_sow71"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kew74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3c252")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_phjf1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sow71")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dibo7"]
+radius = 56.3954
+
+[node name="Plane" type="CharacterBody2D"]
+position = Vector2(90, 128)
+scale = Vector2(0.6, 0.6)
+floor_constant_speed = true
+script = ExtResource("1_3heus")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_kew74")
+animation = &"flying"
+autoplay = "flying"
+frame_progress = 0.356099
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_dibo7")
