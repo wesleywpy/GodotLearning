@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://efhdd53xmsab"]
+
+[ext_resource type="Texture2D" uid="uid://br036l3ry8my5" path="res://assets/textures/animals/dog.png" id="1_xp31u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ye0x8"]
+size = Vector2(68, 68.5)
+
+[node name="Cell" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 68.0
+offset_bottom = 68.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0.0909836, 0.193063, 0.301418, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(34, 33.75)
+shape = SubResource("RectangleShape2D_ye0x8")
+
+[node name="Piece" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Piece"]
+position = Vector2(34.3849, 33.8425)
+scale = Vector2(-0.495845, 0.415245)
+texture = ExtResource("1_xp31u")

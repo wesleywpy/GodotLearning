@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcsmckepfiqvt"]
+[gd_scene load_steps=3 format=3 uid="uid://dcsmckepfiqvt"]
 
 [ext_resource type="Script" path="res://src/widgets/game_form.gd" id="1_2vcfu"]
+[ext_resource type="Texture2D" uid="uid://bnhbda2tl00im" path="res://assets/textures/widgets/numbers/number0.png" id="2_8yqrm"]
 
 [node name="GameForm" type="Control"]
 layout_mode = 3
@@ -16,7 +17,11 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.006
 anchor_bottom = 0.006
-offset_left = 197.0
-offset_top = 0.056
-offset_right = 339.0
-offset_bottom = 53.056
+offset_left = 190.0
+offset_top = 1.056
+offset_right = 332.0
+offset_bottom = 79.056
+
+[node name="TextureRect" type="TextureRect" parent="ScoreContainer"]
+layout_mode = 2
+texture = ExtResource("2_8yqrm")

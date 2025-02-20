@@ -1,5 +1,5 @@
-Timer
 TextureRect
+Timer
 HBoxContainer
 Control
 CollisionShape2D
