@@ -1,16 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqklnnjg283ql"]
+[gd_scene load_steps=3 format=3 uid="uid://dqklnnjg283ql"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_oofpg"]
+[ext_resource type="Script" path="res://src/entities/board.gd" id="2_ljl45"]
+
+[sub_resource type="GDScript" id="GDScript_bsspc"]
+script/source = "extends Node2D
+"
 
 [node name="main" type="Node2D"]
-position = Vector2(264, 16)
-script = ExtResource("1_oofpg")
+position = Vector2(256, 64)
+script = SubResource("GDScript_bsspc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -100
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-offset_left = 2.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 704.0
+mouse_filter = 2
 color = Color(0.0183232, 0.0647911, 0.0330892, 1)
+
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource("2_ljl45")
