@@ -30,7 +30,7 @@ func _ready() -> void:
 
 func hight_light() -> void:
 	$ColorRect.color = hight_light_color
-	
+
 
 func cancel_hight_light() -> void:
 	$ColorRect.color = default_bg_color

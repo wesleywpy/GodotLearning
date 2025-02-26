@@ -40,5 +40,5 @@ func deselected() -> void:
 ## 棋子移动到目标格子
 func move_to(target_cell: Cell) -> void:
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", target_cell.position, 0.2)
+	tween.tween_property(self, "position", target_cell.position, 0.1)
 	await tween.finished

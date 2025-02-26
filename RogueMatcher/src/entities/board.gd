@@ -9,11 +9,16 @@ const cols: int = 9
 var cell_size: Vector2 = Vector2(70,70)
 #网格间隙
 @export var grid_gap: Vector2 = Vector2.ONE
-
+##能否被选中
+var can_seleted = true
 var a_star: AStarGrid2D = AStarGrid2D.new()
+##当前分数
+var score: int = 0:
+	set(value):
+		print("分数改变前: ", score, "分数改变后: ", value)
+		score = value
 
-
-#棋盘当前被选中的棋子
+##棋盘当前被选中的棋子
 var selected_piece: ChessPiece = null:
 	set(value):
 		if selected_piece:
@@ -25,7 +30,7 @@ var selected_piece: ChessPiece = null:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	initialize_board()
-	spawn_random_pieces(3)
+	spawn_random_pieces()
 
 
 ## 初始化棋盘
@@ -50,8 +55,9 @@ func initialize_board() -> void:
 
  
 # 随机生成棋子
-func spawn_random_pieces(times: int) -> void:
-	for i in times:
+func spawn_random_pieces() -> void:
+	# TODO: 游戏结束
+	for i in range(3):
 		spawn_piece()
 
 
@@ -89,10 +95,11 @@ func _find_cells(coords: PackedVector2Array) -> Array:
 	return cells
 
 
-func move_selected_piece(target_cell: Cell) -> void:
+func move_selected_piece(target_cell: Cell) -> bool:
 	var cur_cell: Cell = selected_piece.get_parent()
 	# 获取从起始坐标 到 目标坐标 之间的路径
 	var path: PackedVector2Array = a_star.get_point_path(cur_cell.coordinate, target_cell.coordinate)
+	var res: bool = false
 	if not path.is_empty():
 		var cells: Array = _find_cells(path)
 		# 每个格子高亮显示
@@ -111,14 +118,79 @@ func move_selected_piece(target_cell: Cell) -> void:
 		
 		for c in cells:
 			c.cancel_hight_light()
-
+		res = true
+	
 	selected_piece = null
+	return res
 
 
+## 格子点击事件回调方法
 func _on_cell_pressed(cell: Cell) -> void :
+	if not can_seleted:
+		print("正在移动棋子... 不处理点击事件")
+		return
 	if cell.piece:
 		# 格子上有棋子 则被中
 		selected_piece = cell.piece 
 	elif selected_piece != null:
+		can_seleted = false
 		# 被选中的棋子 移动到 当前cell
-		move_selected_piece(cell)
+		var is_moved: bool = await move_selected_piece(cell)
+		if is_moved:
+			eliminate_piece(cell)
+			spawn_random_pieces()
+		can_seleted = true
+
+
+## 消除棋子
+func eliminate_piece(target_cell: Cell) -> void:
+	# 大于等于5个 消除
+	var threshold: int = 5
+	var eliminated_cells = []
+	# Vector2(1,1): 右下, Vector2(1,-1) 左下
+	var directions = [Vector2.RIGHT, Vector2.DOWN, Vector2(1,1), Vector2(1,-1)]
+	
+	for direction in directions:
+		var cells = check_direction(target_cell, direction.x, direction.y)	
+		if cells.size() >= threshold:
+			eliminated_cells += cells
+	print("size: ", eliminated_cells.size())
+	
+	# 增加分数
+	if eliminated_cells.size() >= threshold:
+		var score_base: int = 10
+		if eliminated_cells.size() > 5:
+			score_base += 2 * (eliminated_cells.size() - 5)
+		self.score += score_base * eliminated_cells.size()
+		for c in eliminated_cells:
+			c.piece = null
+
+
+##  从起始位置的特定方向上 的相同棋子
+## delta_row和delta_col 确定方向
+func check_direction(start_cell: Cell, delta_row: int, delta_col: int) -> Array:
+	if start_cell.piece == null:
+		return []
+	var result = [start_cell]
+	for direction in [-1, 1]:
+		var step: int = 1
+		var can_elimination = true
+		while can_elimination:
+			var coord = Vector2i(
+				start_cell.coordinate.x + direction * step * delta_row,
+				start_cell.coordinate.y + direction * step * delta_col,
+			)
+			# 超出棋盘大小
+			if coord.x < 0 or coord.x >= self.rows or coord.y < 0 or coord.y > self.cols:
+				break
+			var candidate_cell: Cell = _find_cell(coord)
+			if candidate_cell.piece == null:
+				break
+			if candidate_cell.piece.piece_type == start_cell.piece.piece_type:
+				if not result.has(candidate_cell):
+					result.append(candidate_cell)
+				step += 1 #更新步数
+			else:
+				can_elimination = false
+	print("可消除的格子: ", result)
+	return result
