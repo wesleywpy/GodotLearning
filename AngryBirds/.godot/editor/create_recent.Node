@@ -1,0 +1,14 @@
+ColorRect
+Node2D
+CanvasLayer
+TileMapLayer
+TileMap
+Sprite2D
+ParallaxLayer
+ParallaxBackground
+CollisionShape2D
+RigidBody2D
+Camera2D
+Area2D
+Line2D
+Marker2D

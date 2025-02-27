@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhcoce23u2erl"]
+
+[ext_resource type="Texture2D" uid="uid://77s5mdve37lo" path="res://asserts/textures/Pigs/pigs_1.png" id="1_xfn2i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_laiv7"]
+radius = 48.0
+
+[node name="Pigs" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xfn2i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_laiv7")

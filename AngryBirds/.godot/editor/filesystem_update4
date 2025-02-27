@@ -1,0 +1,7 @@
+res://main.tscn
+res://src/entities/slingshot.tscn
+res://src/entities/bullet.tscn
+res://src/entities/pigs.tscn
+res://src/entities/block_10.tscn
+res://src/entities/block_15.tscn
+res://src/entities/slingshot.gd

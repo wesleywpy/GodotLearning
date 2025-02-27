@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dakxkm8ayidtn"]
+
+[ext_resource type="Texture2D" uid="uid://bi4gcqbu5ym3l" path="res://asserts/textures/Elements/elementWood010.png" id="1_ke4ij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_guwdk"]
+size = Vector2(70, 70)
+
+[node name="Block10" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ke4ij")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_guwdk")

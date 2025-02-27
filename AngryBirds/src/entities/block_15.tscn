@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxdny2tqky8hy"]
+
+[ext_resource type="Texture2D" uid="uid://dr7pmen3ghvf1" path="res://asserts/textures/Elements/elementWood015.png" id="1_6qgio"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r7fbk"]
+size = Vector2(220, 71)
+
+[node name="Block15" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6qgio")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_r7fbk")

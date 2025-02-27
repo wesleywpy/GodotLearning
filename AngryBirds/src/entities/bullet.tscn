@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://to4savn4o11y"]
+
+[ext_resource type="Texture2D" uid="uid://bh72jljakuplm" path="res://asserts/textures/Birds/birds_1.png" id="1_euyyn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_laiv7"]
+radius = 40.0
+
+[node name="Bullet" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_euyyn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_laiv7")

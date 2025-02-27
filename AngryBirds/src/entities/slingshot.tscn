@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtbjh167dxhky"]
+
+[ext_resource type="Texture2D" uid="uid://xyhbjuowm0hn" path="res://asserts/textures/slingshot_right.png" id="1_38ca2"]
+[ext_resource type="Script" path="res://src/entities/slingshot.gd" id="1_o138a"]
+[ext_resource type="Texture2D" uid="uid://d11cn6sjxciev" path="res://asserts/textures/slingshot_left.png" id="2_npxva"]
+[ext_resource type="Texture2D" uid="uid://dgqnh8nksedjv" path="res://asserts/textures/slingshot.png" id="3_c8r26"]
+
+[sub_resource type="Curve" id="Curve_aw35p"]
+min_value = 0.5
+_data = [Vector2(0.00526316, 0.983517), 0.0, 0.0, 0, 0, Vector2(1, 0.516484), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_cngsw"]
+min_value = 0.5
+_data = [Vector2(0, 0.972528), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e2k3a"]
+radius = 34.3657
+
+[node name="slingshot" type="Node2D"]
+script = ExtResource("1_o138a")
+
+[node name="SlingshotRight" type="Sprite2D" parent="."]
+texture = ExtResource("1_38ca2")
+offset = Vector2(6, -100)
+
+[node name="SlingBandRight" type="Line2D" parent="."]
+points = PackedVector2Array(13, -172, -111, -148)
+width = 15.0
+width_curve = SubResource("Curve_aw35p")
+default_color = Color(0.2, 0.0666667, 0, 1)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-5, -167)
+
+[node name="Slingshot" type="Sprite2D" parent="."]
+position = Vector2(-116, -148)
+texture = ExtResource("3_c8r26")
+
+[node name="SlingshotLeft" type="Sprite2D" parent="."]
+position = Vector2(-5, -167)
+texture = ExtResource("2_npxva")
+offset = Vector2(-17, 25)
+
+[node name="SlingBandLeft" type="Line2D" parent="."]
+points = PackedVector2Array(-27, -172, -110, -148)
+width = 15.0
+width_curve = SubResource("Curve_cngsw")
+default_color = Color(0.2, 0.0666667, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-5, -167)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_e2k3a")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(312, -264)
