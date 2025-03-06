@@ -3,25 +3,26 @@
 [ext_resource type="Script" path="res://src/entities/rock.gd" id="1_airt1"]
 [ext_resource type="Texture2D" uid="uid://dpoxlgd5a5yiu" path="res://assets/textures/entities/rocks/rock.png" id="1_rveig"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fiu2y"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rx4tj"]
+radius = 8.0
+height = 224.0
 
-[node name="Rock" type="CharacterBody2D"]
-position = Vector2(78, 120)
+[node name="Rock" type="CharacterBody2D" groups=["rock"]]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_airt1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rveig")
+offset = Vector2(0, -120)
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-position = Vector2(-95, -149)
+position = Vector2(-93.5731, -265.756)
+scale = Vector2(0.980769, 0.993351)
 polygon = PackedVector2Array(110, 32, 121, 134, 127, 134, 135, 204, 140, 209, 147, 266, 43, 267, 72, 161, 79, 154, 104, 33)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("RectangleShape2D_fiu2y")
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+position = Vector2(8, -112)
+shape = SubResource("CapsuleShape2D_rx4tj")

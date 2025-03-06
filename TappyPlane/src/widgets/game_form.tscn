@@ -1,7 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcsmckepfiqvt"]
+[gd_scene load_steps=8 format=3 uid="uid://dcsmckepfiqvt"]
 
 [ext_resource type="Script" path="res://src/widgets/game_form.gd" id="1_2vcfu"]
 [ext_resource type="Texture2D" uid="uid://bnhbda2tl00im" path="res://assets/textures/widgets/numbers/number0.png" id="2_8yqrm"]
+[ext_resource type="Texture2D" uid="uid://ma70uc24u6my" path="res://assets/textures/widgets/others/UIbg.png" id="3_oyen6"]
+[ext_resource type="Texture2D" uid="uid://x42fbfnws5ao" path="res://assets/textures/widgets/others/textGameOver.png" id="4_ctfch"]
+[ext_resource type="Texture2D" uid="uid://f36iswd7wvs2" path="res://assets/textures/widgets/others/buttonLarge.png" id="5_qmuan"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_psprl"]
+font_size = 24
+font_color = Color(0.977411, 0.985209, 0.975665, 1)
+outline_size = 5
+outline_color = Color(0.0214346, 0.0214346, 0.0214346, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mpjro"]
+font_size = 24
+outline_size = 5
+outline_color = Color(0.0383972, 0.0383972, 0.0383972, 1)
 
 [node name="GameForm" type="Control"]
 layout_mode = 3
@@ -14,14 +28,99 @@ script = ExtResource("1_2vcfu")
 
 [node name="ScoreContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.006
-anchor_bottom = 0.006
-offset_left = 190.0
-offset_top = 1.056
-offset_right = 332.0
-offset_bottom = 79.056
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_right = 65.0
+offset_bottom = 80.0
+grow_horizontal = 0
+scale = Vector2(0.495473, 0.699164)
 
-[node name="TextureRect" type="TextureRect" parent="ScoreContainer"]
+[node name="ScoreTextureRect" type="TextureRect" parent="ScoreContainer"]
 layout_mode = 2
 texture = ExtResource("2_8yqrm")
+
+[node name="GameOverPop" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.0
+offset_top = -100.0
+offset_right = 211.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.99727, 1)
+
+[node name="TextureRect" type="TextureRect" parent="GameOverPop"]
+layout_mode = 2
+texture = ExtResource("3_oyen6")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverPop"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverPop/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOverTexture" type="TextureRect" parent="GameOverPop/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_ctfch")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverPop/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="QuitButton" type="TextureButton" parent="GameOverPop/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_qmuan")
+stretch_mode = 0
+
+[node name="QuitLabel" type="Label" parent="GameOverPop/MarginContainer/VBoxContainer/HBoxContainer/QuitButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -32.0
+offset_right = 99.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+label_settings = SubResource("LabelSettings_psprl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryButton" type="TextureButton" parent="GameOverPop/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_qmuan")
+stretch_mode = 0
+
+[node name="RetryLabel" type="Label" parent="GameOverPop/MarginContainer/VBoxContainer/HBoxContainer/RetryButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Retry"
+label_settings = SubResource("LabelSettings_mpjro")
+horizontal_alignment = 1
+vertical_alignment = 1
