@@ -49,12 +49,34 @@ class ReadyState:
 		if is_quit_game:
 			transition_to(GAME_STATE_TYPE.END)	
 
-
+## 实际的游戏状态
 class PlayingState:
 	extends BaseState
+	var is_over_game : bool = false
+	var is_retry_game : bool = false
+	func enter(_msg: Dictionary = {}) -> void:
+		print("enter playing state")
+		agent.retry_game()
 	
+	func exit() -> void:
+		set_fsm_variable('is_over_game', false)
+		set_fsm_variable('is_retry_game', false)
+	
+	func update(detla: float) -> void:
+		if has_fsm_variable('is_over_game'):
+			is_over_game = get_fsm_variable('is_over_game')
+		if has_fsm_variable('is_retry_game'):
+			is_retry_game = get_fsm_variable('is_retry_game')
+		if is_over_game:
+			transition_to(GAME_STATE_TYPE.READY)
+		if is_retry_game:
+			transition_to(GAME_STATE_TYPE.PLAYING)	
+
 class PauseState:
 	extends BaseState
 	
 class EndState:
 	extends BaseState
+	func enter(_msg: Dictionary = {}) -> void:
+		print("enter end state")
+		agent.end_game()

@@ -1,4 +1,4 @@
-extends Control
+extends UIForm
 class_name GameForm
 
 @onready var score_container: HBoxContainer = $ScoreContainer

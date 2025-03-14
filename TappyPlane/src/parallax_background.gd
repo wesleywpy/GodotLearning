@@ -6,7 +6,7 @@ extends ParallaxBackground
 @export var speed: float = 180
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func retry_game() -> void:
 	# 重新加载初始化偏移量
 	parallax_layer.motion_offset = Vector2.ZERO
 

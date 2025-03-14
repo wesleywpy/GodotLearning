@@ -1,9 +1,10 @@
 extends Node2D
 
-@onready var game_form: GameForm = %GameForm
-@onready var parallax_layer: ParallaxLayer = $ParallaxBackground/ParallaxLayer
+#@onready var game_form: GameForm = %GameForm
+#@onready var menu_form: MenuForm = $UILayer/MenuForm
+@onready var parallax_background: ParallaxBackground = %ParallaxBackground
 @onready var game_state_machine: GameStateMachine = %GameStateMachine
-@onready var menu_form: MenuForm = $UILayer/MenuForm
+@onready var ui_manager: UIManager = %UIManager
 
 @export var min_spawn_rock_time: float = 1.0
 @export var max_spawn_rock_time: float = 3.0
@@ -14,20 +15,43 @@ var score_timer: Timer = Timer.new()
 var s_rock: PackedScene = preload("res://src/entities/rock.tscn")
 var s_plane: PackedScene = preload("res://src/entities/plane.tscn")
 var current_score: int = 0 
+var current_ui: Control:
+	get:
+		return ui_manager.current_interface
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not ui_manager:
+		ui_manager = %UIManager
 	#retry_game()
-	game_form.quit_pressed.connect(_on_game_form_quit_pressed)
-	game_form.retry_pressed.connect(_on_game_form_retry_pressed)
-	menu_form.btn_new_game_pressed.connect(_on_menu_form_btn_new_game_pressed)
+	#game_form.quit_pressed.connect(_on_game_form_quit_pressed)
+	#game_form.retry_pressed.connect(_on_game_form_retry_pressed)
+	ui_manager.subscribe(MenuForm.singal_new_game, _on_menu_form_btn_new_game_pressed)
+	ui_manager.subscribe(MenuForm.singal_quit_game, _on_menu_form_btn_quit_game_pressed)
+	#menu_form.btn_new_game_pressed.connect(_on_menu_form_btn_new_game_pressed)
 	game_state_machine.launch()
 
 func init_game() -> void:
 	pass
 
+# 准备游戏
 func ready_game() -> void:
-	pass
+	if not ui_manager:
+		ui_manager = %UIManager
+	ui_manager.open_interface("menu_form")  #打开菜单框
+
+# 新的一局游戏
+func new_game() -> void:
+	game_state_machine.set_variable('is_new_game', true)
+
+## 退出游戏
+func quit_game() -> void:
+	game_state_machine.set_variable('is_quit_game', true)
+
+# 结束游戏
+func end_game() -> void:
+	get_tree().quit()
+
 
 # 重试游戏
 func retry_game() -> void:
@@ -36,8 +60,10 @@ func retry_game() -> void:
 		plane.position = Vector2(90, 130)
 		self.add_child(plane)
 	current_score = 0
-	game_form.update_score_display(current_score)
-	game_form.retry_game()
+	ui_manager.open_interface("game_form")
+	current_ui.update_score_display(current_score)
+	#game_form.update_score_display(current_score)
+	#game_form.retry_game()
 	# 石头 Timer
 	rock_timer.wait_time = randf_range(min_spawn_rock_time, max_spawn_rock_time)
 	rock_timer.timeout.connect(_on_timer_timeout)
@@ -49,6 +75,7 @@ func retry_game() -> void:
 	score_timer.timeout.connect(_on_score_timer_timeout)
 	self.add_child(score_timer)
 	score_timer.start()
+	parallax_background.retry_game()
 
  
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,7 +91,7 @@ func game_over() -> void:
 	plane.queue_free()
 	rock_timer.stop()
 	score_timer.stop()
-	game_form.game_over()
+	#game_form.game_over()
 	# 清空飞机和石头
 	plane.queue_free()
 	for rock in get_tree().get_nodes_in_group("rock"):
@@ -98,7 +125,7 @@ func _on_rock_entered() -> void:
 # 分数计时器
 func _on_score_timer_timeout() -> void:
 	current_score += 1
-	game_form.update_score_display(current_score)
+	#game_form.update_score_display(current_score)
 
 ## 退出按钮事件
 func _on_game_form_quit_pressed() -> void:
@@ -112,4 +139,7 @@ func _on_game_form_retry_pressed() -> void:
 	retry_game()
 
 func _on_menu_form_btn_new_game_pressed() -> void:
-	retry_game()
+	new_game()
+
+func _on_menu_form_btn_quit_game_pressed() -> void:
+	quit_game()

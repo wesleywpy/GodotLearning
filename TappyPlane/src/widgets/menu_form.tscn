@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://fn7vnw1rsx7j"]
 
 [ext_resource type="Texture2D" uid="uid://ma70uc24u6my" path="res://assets/textures/widgets/others/UIbg.png" id="1_4llkg"]
-[ext_resource type="Script" path="res://src/widgets/menu_form.gd" id="1_8uwis"]
+[ext_resource type="Script" uid="uid://cr87viyr0umfv" path="res://src/widgets/menu_form.gd" id="1_8uwis"]
 [ext_resource type="Texture2D" uid="uid://c4bfkofs6eipb" path="res://assets/textures/widgets/others/yellow_button00.png" id="2_g7nw8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ucupe"]
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8uwis")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="BackgroundContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -37,30 +37,30 @@ offset_bottom = 95.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="BackgroundContainer"]
 layout_mode = 2
 texture = ExtResource("1_4llkg")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="BackgroundContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="NewGameButton" type="TextureButton" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="NewGameButton" type="TextureButton" parent="BackgroundContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("2_g7nw8")
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/NewGameButton"]
+[node name="Label" type="Label" parent="BackgroundContainer/MarginContainer/VBoxContainer/NewGameButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -76,13 +76,13 @@ grow_vertical = 2
 text = "New Game"
 label_settings = SubResource("LabelSettings_ucupe")
 
-[node name="SeetingButton" type="TextureButton" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="SeetingButton" type="TextureButton" parent="BackgroundContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("2_g7nw8")
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/SeetingButton"]
+[node name="Label" type="Label" parent="BackgroundContainer/MarginContainer/VBoxContainer/SeetingButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -97,13 +97,13 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Seeting"
 
-[node name="RankButton" type="TextureButton" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="RankButton" type="TextureButton" parent="BackgroundContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("2_g7nw8")
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/RankButton"]
+[node name="Label" type="Label" parent="BackgroundContainer/MarginContainer/VBoxContainer/RankButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -118,13 +118,13 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Rank"
 
-[node name="QuitButton" type="TextureButton" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="TextureButton" parent="BackgroundContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("2_g7nw8")
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/QuitButton"]
+[node name="Label" type="Label" parent="BackgroundContainer/MarginContainer/VBoxContainer/QuitButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -139,5 +139,3 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Quit"
 label_settings = SubResource("LabelSettings_hwfkj")
-
-[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]

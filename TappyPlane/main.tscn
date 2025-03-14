@@ -1,39 +1,23 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1cqf6y56j3dk"]
+[gd_scene load_steps=8 format=3 uid="uid://c1cqf6y56j3dk"]
 
 [ext_resource type="Texture2D" uid="uid://d3owi2lqpevvo" path="res://assets/textures/others/background.png" id="1_7i5cj"]
-[ext_resource type="Script" path="res://src/parallax_background.gd" id="1_j1c2c"]
-[ext_resource type="Script" path="res://main.gd" id="1_nk03j"]
+[ext_resource type="Script" uid="uid://cgpq1i0tnsouu" path="res://src/parallax_background.gd" id="1_j1c2c"]
+[ext_resource type="Script" uid="uid://2yxnyqcq6cj6" path="res://main.gd" id="1_nk03j"]
 [ext_resource type="PackedScene" uid="uid://fdl0ebhbgaua" path="res://src/entities/rock.tscn" id="4_218nn"]
-[ext_resource type="PackedScene" uid="uid://dcsmckepfiqvt" path="res://src/widgets/game_form.tscn" id="6_00de1"]
-[ext_resource type="PackedScene" uid="uid://fn7vnw1rsx7j" path="res://src/widgets/menu_form.tscn" id="6_mhva8"]
-[ext_resource type="Script" path="res://src/widgets/ui_layer.gd" id="6_s13fx"]
 [ext_resource type="AudioStream" uid="uid://b1n3v8x16io0p" path="res://assets/audio/music/Swinging Pants.ogg" id="7_fn1vb"]
-[ext_resource type="Script" path="res://src/game_state_machine.gd" id="8_xfpki"]
-
-[sub_resource type="GDScript" id="GDScript_qevew"]
-script/source = "extends ParallaxLayer
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
+[ext_resource type="Script" uid="uid://28eyg8sve7pb" path="res://src/game_state_machine.gd" id="8_xfpki"]
+[ext_resource type="Script" uid="uid://baxcjrkjqv2ai" path="res://src/widgets/framework/UIManager.gd" id="10_4c57u"]
 
 [node name="main" type="Node2D"]
 position = Vector2(4, 2)
 script = ExtResource("1_nk03j")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+unique_name_in_owner = true
 script = ExtResource("1_j1c2c")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(576, 0)
-script = SubResource("GDScript_qevew")
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2(287.75, 161.5)
@@ -42,16 +26,6 @@ texture = ExtResource("1_7i5cj")
 
 [node name="Rock" parent="." instance=ExtResource("4_218nn")]
 position = Vector2(644, 350)
-
-[node name="UILayer" type="CanvasLayer" parent="."]
-script = ExtResource("6_s13fx")
-
-[node name="MenuForm" parent="UILayer" instance=ExtResource("6_mhva8")]
-
-[node name="GameForm" parent="UILayer" instance=ExtResource("6_00de1")]
-unique_name_in_owner = true
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_fn1vb")
@@ -62,3 +36,8 @@ parameters/looping = true
 unique_name_in_owner = true
 script = ExtResource("8_xfpki")
 agent = NodePath("..")
+
+[node name="UIManager" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("10_4c57u")
+metadata/_custom_type_script = "uid://baxcjrkjqv2ai"
